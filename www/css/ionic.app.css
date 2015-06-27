@@ -7674,3 +7674,22 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+[name="tab-dash"] .item-avatar > img:first-child {
+  border-radius: 5px; }
+[name="tab-dash"] .item {
+  border: 0; }
+
+/* Empty. Add your own CSS if you like */
+.quest-container {
+  margin-top: 10rem;
+  margin: 3rem 0rem; }
+
+.quest-container h1 {
+  text-align: center; }
+
+.quest-container textarea {
+  border: 0.2rem solid cornflowerblue;
+  width: 100%;
+  padding: 0.4rem; }
+
