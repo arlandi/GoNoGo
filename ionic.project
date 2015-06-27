@@ -1,4 +1,12 @@
 {
   "name": "GoNoGo",
-  "app_id": "673d8e60"
+  "app_id": "673d8e60",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

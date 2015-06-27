@@ -47,4 +47,48 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+.factory('Questions', function() {
+
+  // Some fake testing data
+  var questions = [{
+    id: 1,
+    name: 'Username1',
+    question: 'This is the question',
+    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
+  },
+  {
+    id: 2,
+    name: 'Username2',
+    question: 'This is the question 2',
+    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
+  },
+  {
+    id: 3,
+    name: 'Username3',
+    question: 'This is the question 3',
+    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
+  },
+  {
+    id: 4,
+    name: 'Username4',
+    question: 'This is the question 4',
+    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
+  }];
+
+  return {
+    all: function() {
+      return questions;
+    },
+    get: function(questionId) {
+      for (var i = 0; i < questions.length; i++) {
+        if (questions[i].id === parseInt(questionId)) {
+          return questions[i];
+        }
+      }
+      return null;
+    }
+  };
+
 });
