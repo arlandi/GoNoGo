@@ -1,28 +1,41 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ["ionic"])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-  
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
+.controller('ChatsCtrl', function($scope, Chats, $ionicLoading, $state) {
+
+
+  $scope.submit = function(userQuestion) {
+    $ionicLoading.show();
+    var Question = Parse.Object.extend("Question");
+    var question = new Question();
+
+    question.set("question", userQuestion);
+   
+
+    question.save(null, {
+        success: function(question) {
+           console.log(question);
+           $ionicLoading.hide();
+           $state.go("tab.dash")
+
+        },
+        error: function(question, error) {
+            // Execute any logic that should take place if the save fails.
+            // error is a Parse.Error with an error code and message.
+            alert('Failed to create new object, with error code: ' + error.message);
+        }
+    });
+  } 
+
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+    $scope.chat = Chats.get($stateParams.chatId);
 })
 
 .controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+    $scope.settings = {
+        enableFriends: true
+    };
 });
