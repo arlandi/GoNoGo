@@ -1,12 +1,21 @@
 angular.module('starter.controllers', ["ionic"])
 
-.controller('DashCtrl', function($scope, Questions) {
-  $scope.questions = Questions.all();
+.controller('DashCtrl', function($scope, Questions, $ionicLoading) {
+
+  $ionicLoading.show();
+
+  Questions.all()
+    .then(function(data) {
+      $scope.questions = data;
+      $ionicLoading.hide();
+    }, function(error) {
+      alert(error);
+      $ionicLoading.hide();
+    });
+
 })
 
-.controller('ChatsCtrl', function($scope, Chats, $ionicLoading, $state) {
-
-
+.controller('ChatsCtrl', function($scope, $ionicLoading, $state) {
   $scope.submit = function(userQuestion) {
     $ionicLoading.show();
     var Question = Parse.Object.extend("Question");
@@ -14,29 +23,26 @@ angular.module('starter.controllers', ["ionic"])
 
     question.set("question", userQuestion);
 
-
     question.save(null, {
-        success: function(question) {
-           console.log(question);
-           $ionicLoading.hide();
-           $state.go("tab.dash")
+      success: function(question) {
+        console.log(question);
+        $ionicLoading.hide();
+        $state.go("tab.dash")
 
-        },
-        error: function(question, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
-        }
+      },
+      error: function(question, error) {
+        alert('Failed to create new object, with error code: ' + error.message);
+      }
     });
   }
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
+  $scope.chat = Chats.get($stateParams.chatId);
 })
 
 .controller('AccountCtrl', function($scope) {
-    $scope.settings = {
-        enableFriends: true
-    };
+  $scope.settings = {
+    enableFriends: true
+  };
 });

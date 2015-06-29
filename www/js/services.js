@@ -1,85 +1,27 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-  },{
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-})
-
 .factory('Questions', function() {
-
-  // Some fake testing data
-  var questions = [{
-    id: 1,
-    name: 'Username1',
-    question: 'This is the question',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  },
-  {
-    id: 2,
-    name: 'Username2',
-    question: 'This is the question 2',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  },
-  {
-    id: 3,
-    name: 'Username3',
-    question: 'This is the question 3',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  },
-  {
-    id: 4,
-    name: 'Username4',
-    question: 'This is the question 4',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  }];
-
   return {
     all: function() {
-      return questions;
+      var Question = Parse.Object.extend("Question");
+
+      var query = new Parse.Query(Question);
+
+      query.limit(50);
+      query.descending("createdAt");
+
+      return query.find().then(
+        function(results) {
+          var res = [];
+          for (var i = 0; i < results.length; i++) {
+            res.push(results[i].toJSON());
+          }
+          return res;
+        },
+        function(error) {
+          return error;
+        }
+      );
     },
     get: function(questionId) {
       for (var i = 0; i < questions.length; i++) {
@@ -90,5 +32,4 @@ angular.module('starter.services', [])
       return null;
     }
   };
-
 });
