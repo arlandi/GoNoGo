@@ -1,4 +1,52 @@
-angular.module('starter.controllers', ["ionic"])
+angular.module('starter.controllers', ['ionic', 'ngCordova'])
+
+.controller('SplashCtrl', function($scope) {})
+
+.controller('SignInCtrl', function($scope) {})
+
+.controller('SignUpCtrl', function($scope, $rootScope, $state) {
+  $scope.signUpError = '';
+
+  $scope.signUp = function(user) {
+    $scope.signUpError = '';
+
+    if (!user || !user.email || !user.username || !user.password) {
+      $scope.signUpError = 'Please fill out all the fields.';
+      return false;
+    }
+
+    $scope.loading = true;
+
+    var parseUser = new Parse.User();
+    parseUser.set("email", user.email.toLowerCase());
+    parseUser.set("username", user.username.toLowerCase());
+    parseUser.set("password", user.password);
+
+    parseUser.signUp(null, {
+      success: function(newUser) {
+        $rootScope.currentUser = newUser;
+        $rootScope.$apply();
+        $state.go('tab.dash');
+      },
+      error: function(newUser, error) {
+        console.log(error);
+        switch (error.code) {
+          case 125:
+            $scope.signUpError = 'Invalid email.';
+            break;
+          case 202:
+            $scope.signUpError = 'That username is taken.';
+            break;
+          case 203:
+            $scope.signUpError = 'That email is taken.';
+            break;
+        }
+        $scope.loading = false;
+        $scope.$apply();
+      }
+    });
+  }
+})
 
 .controller('DashCtrl', function($scope, Questions, $ionicLoading) {
 
@@ -12,7 +60,6 @@ angular.module('starter.controllers', ["ionic"])
       alert(error);
       $ionicLoading.hide();
     });
-
 })
 
 .controller('ChatsCtrl', function($scope, $ionicLoading, $state) {

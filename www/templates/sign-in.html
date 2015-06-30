@@ -1,0 +1,22 @@
+<ion-view title="Log In">
+	<ion-content has-bouncing="false">
+		<form>
+			<div class="list">
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Username</span>
+					<input autocorrect="off" autocomplete="off" autocapitalize="off" type="text" placeholder="Username" ng-model="user.username">
+				</label>
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Password</span>
+					<input autocorrect="off" autocomplete="off" autocapitalize="off" type="password" placeholder="Password" ng-model="user.password">
+				</label>
+			</div>
+			<span id="signInError" class="hidden button icon-left ion-alert button-clear button-assertive form-error">{{signInError}}</span>
+			<div>
+				<button id="signInButton" class="button button-block button-positive evince-button" ng-click="signIn(user)">
+					Log In
+				</button>
+			</div>
+		</form>
+	</ion-content>
+</ion-view>

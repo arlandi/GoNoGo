@@ -7692,3 +7692,7 @@ a.button {
   width: 100%;
   padding: 0.4rem; }
 
+.splash-logo {
+  color: #387ef5;
+  text-align: center;
+  margin: 140px 0 !important; }

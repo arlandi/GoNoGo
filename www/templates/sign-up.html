@@ -1,0 +1,24 @@
+<ion-view title="Sign Up">
+	<ion-content has-bouncing="false">
+		<form>
+			<div class="list">
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Email</span>
+					<input autocorrect="off" autocomplete="off" autocapitalize="off" type="text" placeholder="Email" ng-model="user.email">
+				</label>
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Username</span>
+					<input autocorrect="off" autocomplete="off" autocapitalize="off" type="text" placeholder="Username" ng-model="user.username">
+				</label>
+				<label class="item item-input item-floating-label">
+					<span class="input-label">Password</span>
+					<input autocorrect="off" autocomplete="off" autocapitalize="off" type="password" placeholder="Password" ng-model="user.password">
+				</label>
+			</div>
+			<span id="signUpError" class="button button-clear button-assertive form-error" ng-show="signUpError">{{signUpError}}</span>
+			<button class="button button-full button-positive" ng-click="signUp(user)" ng-disabled="loading">
+				{{loading ? 'Signing Up...' : 'Sign Up'}}
+			</button>
+		</form>
+	</ion-content>
+</ion-view>
