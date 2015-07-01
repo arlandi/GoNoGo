@@ -54,6 +54,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
     var parseUser = new Parse.User();
     parseUser.set("email", user.email.toLowerCase());
     parseUser.set("username", user.username.toLowerCase());
+    parseUser.set("usernameDisplay", user.username);
     parseUser.set("password", user.password);
 
     parseUser.signUp(null, {
