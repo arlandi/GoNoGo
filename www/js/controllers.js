@@ -2,7 +2,41 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 .controller('SplashCtrl', function($scope) {})
 
-.controller('SignInCtrl', function($scope) {})
+.controller('SignInCtrl', function($scope, $rootScope, $state) {
+  $scope.signInError = '';
+
+  $scope.signIn = function(user) {
+    $scope.signInError = '';
+
+    if (!user || !user.username || !user.password) {
+      $scope.signInError = 'Please fill out all the fields.';
+      return false;
+    }
+
+    $scope.loading = true;
+
+    Parse.User.logIn(user.username.toLowerCase(), user.password, {
+      success: function(thisUser) {
+        console.log(thisUser);
+        $rootScope.currentUser = thisUser;
+        $rootScope.$apply();
+        $state.go('tab.dash');
+      },
+      error: function(user, error) {
+        console.log(error);
+        switch (error.code) {
+          case 101:
+            $scope.signInError = 'Wrong username or password.';
+            break;
+        }
+        $scope.loading = false;
+        setTimeout(function() {
+          $scope.$apply();
+        });
+      }
+    });
+  };
+})
 
 .controller('SignUpCtrl', function($scope, $rootScope, $state) {
   $scope.signUpError = '';

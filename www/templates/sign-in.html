@@ -11,10 +11,10 @@
 					<input autocorrect="off" autocomplete="off" autocapitalize="off" type="password" placeholder="Password" ng-model="user.password">
 				</label>
 			</div>
-			<span id="signInError" class="hidden button icon-left ion-alert button-clear button-assertive form-error">{{signInError}}</span>
+			<span class="button button-clear button-assertive form-error" ng-show="signInError">{{signInError}}</span>
 			<div>
-				<button id="signInButton" class="button button-block button-positive evince-button" ng-click="signIn(user)">
-					Log In
+				<button class="button button-block button-positive" ng-click="signIn(user)" ng-disabled="loading">
+					{{loading ? 'Loggin In...' : 'Log In'}}
 				</button>
 			</div>
 		</form>

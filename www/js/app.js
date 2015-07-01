@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
     Parse.initialize("fWrQZVK5nEvqdatS6l1xjl6AKUhGfZi0RmvFWe5T", "FjJ9JvqQ727AbhY0i2RDRWKTsGmNOpsKe34M1Mlk");
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -19,6 +19,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+
+    $rootScope.getCurrentUser = function() {
+      $rootScope.currentUser = Parse.User.current();
+
+      if ($rootScope.currentUser !== null) {
+        console.log('User logged in', $rootScope.currentUser);
+        $state.go('tab.dash');
+      }
+    }
+    $rootScope.getCurrentUser();
+
   });
 })
 
