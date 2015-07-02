@@ -1,11 +1,13 @@
 <ion-view view-title="Ask a Question">
-  <ion-content>
-    <div class="quest-container">
-      <h1>Question</h1>
-      <textarea placeholder="Comments" ng-model="userQuestion"></textarea>
-      <button class="button button-block button-positive" ng-click="submit(userQuestion)">
-        Ask
-      </button>
-    </div>
-  </ion-content>
+    <ion-content>
+        <div class="quest-container">
+            <div class="list list-inset">
+		        <h1>Question</h1>
+                <label class="item item-input item-stacked-label">
+                    <textarea ng-model="userQuestion"></textarea>
+                </label>
+            <button class="button button-block button-positive" ng-click="submit(userQuestion)">Ask</button>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

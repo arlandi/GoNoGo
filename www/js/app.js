@@ -87,15 +87,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
+
+  .state('tab.vote', {
+    url: '/vote',
+    params: {
+      question: null,
+      vote: null
+    },
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/vote.html',
+        controller: 'VoteCtrl'
       }
-    })
+    }
+  })
 
   .state('tab.account', {
     url: '/account',

@@ -1,9 +1,12 @@
-<ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+<ion-view view-title="Your Profile">
+    <ion-content>
+        <div class="list">
+            <a class="item" href="#">
+	            Username
+                <span class="item-note">
+				  {{user.usernameDisplay}}
+				</span>
+            </a>
+        </div>
+    </ion-content>
 </ion-view>

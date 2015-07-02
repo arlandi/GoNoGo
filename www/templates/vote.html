@@ -1,0 +1,15 @@
+<ion-view view-title="Vote">
+    <ion-content class="padding vote__container">
+    	<p>{{question.question}}</p>
+        <div class="button-bar">
+            <a ng-class="{active: vote}" class="button button-balanced button-outline" ng-click="vote = 1">Go</a>
+            <a ng-class="{active: ! vote}" class="button button-assertive button-outline" ng-click="vote = 0">No Go</a>
+        </div>
+        <div class="list">
+            <label class="item item-input">
+                <textarea placeholder="Comments optional" ng-model="comment"></textarea>
+            </label>
+        </div>
+        <button class="button button-block button-positive" ng-click="submitVote(vote, comment)">Submit</button>
+    </ion-content>
+</ion-view>

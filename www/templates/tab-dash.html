@@ -1,13 +1,14 @@
-<ion-view view-title="Dashboard">
-  <ion-content>
-
-  	<ion-list>
-      <ion-item class="item-avatar" ng-repeat="question in questions" type="item-text-wrap">
-        <img ng-src="{{question.face}}">
-        <h2>{{question.name}}</h2>
-        <p>{{question.question}}</p>
-      </ion-item>
-    </ion-list>
-
-  </ion-content>
+<ion-view view-title="Home">
+    <ion-content class="padding">
+        <ion-list>
+            <ion-item class="item-avatar" ng-repeat="question in questions" type="item-text-wrap">
+                <img ng-src="{{question.createdBy.picture}}">
+                <h2>{{question.createdBy.usernameDisplay}}</h2>
+                <p>{{question.question}}</p>
+                <a ng-click="goVote(question, 1)" class="button button-small button-outline button-balanced"><span class="percentage">10% | </span>Go</a>
+                <a ng-click="goVote(question, 0)" class="button button-small button-outline button-assertive">No Go</a>
+                <span class="badge badge-stable ion-chatbubble">0</span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

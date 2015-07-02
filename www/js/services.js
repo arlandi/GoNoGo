@@ -7,6 +7,7 @@ angular.module('starter.services', [])
 
       var query = new Parse.Query(Question);
 
+      query.include("createdBy");
       query.limit(50);
       query.descending("createdAt");
 
@@ -14,6 +15,7 @@ angular.module('starter.services', [])
         function(results) {
           var res = [];
           for (var i = 0; i < results.length; i++) {
+            results[i].set('createdBy', results[i].get('createdBy').toJSON());
             res.push(results[i].toJSON());
           }
           return res;

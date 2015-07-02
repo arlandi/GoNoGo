@@ -83,7 +83,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller('DashCtrl', function($scope, Questions, $ionicLoading) {
+.controller('DashCtrl', function($scope, Questions, $ionicLoading, $state) {
 
   $ionicLoading.show();
 
@@ -95,15 +95,20 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
       alert(error);
       $ionicLoading.hide();
     });
+
+  $scope.goVote = function(question, vote) {
+    $state.go('tab.vote', { question: question, vote: vote });
+  };
 })
 
-.controller('ChatsCtrl', function($scope, $ionicLoading, $state) {
+.controller('ChatsCtrl', function($scope, $ionicLoading, $state, $rootScope) {
   $scope.submit = function(userQuestion) {
     $ionicLoading.show();
     var Question = Parse.Object.extend("Question");
     var question = new Question();
 
     question.set("question", userQuestion);
+    question.set("createdBy", $rootScope.currentUser);
 
     question.save(null, {
       success: function(question) {
@@ -119,12 +124,38 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('VoteCtrl', function($scope, $stateParams, $ionicLoading, $rootScope, $state) {
+  $scope.question = $stateParams.question;
+  $scope.vote     = $stateParams.vote;
+
+  $scope.submitVote = function(userVote, userComment) {
+    $ionicLoading.show();
+    var Vote = Parse.Object.extend("Vote");
+    var vote = new Vote();
+
+    var Question = Parse.Object.extend("Question");
+    var question = new Question();
+    question.id = $scope.question.objectId;
+
+    vote.set("question", question);
+    vote.set("createdBy", $rootScope.currentUser);
+    vote.set("vote", userVote);
+    vote.set("comment", userComment);
+
+    vote.save(null, {
+      success: function(vote) {
+        console.log(vote);
+        $ionicLoading.hide();
+        $state.go("tab.dash")
+
+      },
+      error: function(vote, error) {
+        alert('Failed to create new object, with error code: ' + error.message);
+      }
+    });
+  }
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('AccountCtrl', function($scope, $rootScope) {
+  $scope.user = $rootScope.currentUser.toJSON();
 });

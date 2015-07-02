@@ -1,8 +1,20 @@
 [name="tab-dash"] {
   .item-avatar > img:first-child {
+    background: $stable;
     border-radius: 5px;
   }
   .item {
     border: 0;
+
+    span.badge:before {
+      margin-right: 5px;
+    }
+  }
+}
+
+.vote__container {
+  .item-input {
+    margin: 20px 0;
+    padding: 0;
   }
 }

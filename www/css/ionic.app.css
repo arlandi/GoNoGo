@@ -7676,21 +7676,16 @@ a.button {
   transition-duration: 0s; }
 
 [name="tab-dash"] .item-avatar > img:first-child {
+  background: #f8f8f8;
   border-radius: 5px; }
 [name="tab-dash"] .item {
   border: 0; }
+  [name="tab-dash"] .item span.badge:before {
+    margin-right: 5px; }
 
-.quest-container {
-  margin-top: 10rem;
-  margin: 3rem 0rem; }
-
-.quest-container h1 {
-  text-align: center; }
-
-.quest-container textarea {
-  border: 0.2rem solid cornflowerblue;
-  width: 100%;
-  padding: 0.4rem; }
+.vote__container .item-input {
+  margin: 20px 0;
+  padding: 0; }
 
 .splash-logo {
   color: #387ef5;
