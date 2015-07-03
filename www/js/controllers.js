@@ -171,6 +171,12 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   $scope.question = $stateParams.question;
 })
 
-.controller('AccountCtrl', function($scope, $rootScope) {
+.controller('AccountCtrl', function($scope, $rootScope, $state) {
   $scope.user = $rootScope.currentUser.toJSON();
+
+  $scope.logout = function() {
+    $rootScope.currentUser = null;
+    Parse.User.logOut();
+    $state.go('splash');
+  }
 });
