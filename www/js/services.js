@@ -34,4 +34,34 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+.factory('Comments', function() {
+  return {
+    getAllForQuestionId: function(questionId) {
+      var Vote     = Parse.Object.extend("Vote");
+      var Question = Parse.Object.extend("Question");
+
+      var query    = new Parse.Query(Vote);
+      var question = new Question();
+      question.id  = questionId;
+
+      query.descending("createdAt");
+      query.exists("comment");
+      query.equalTo("question", question);
+
+      return query.find().then(
+        function(results) {
+          var res = [];
+          for (var i = 0; i < results.length; i++) {
+            res.push(results[i].toJSON());
+          }
+          return res;
+        },
+        function(error) {
+          return error;
+        }
+      );
+    },
+  };
 });

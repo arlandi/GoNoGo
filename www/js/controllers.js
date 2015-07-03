@@ -103,7 +103,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
         $scope.questions = data;
         $ionicLoading.hide();
       }, function(error) {
-        alert(error);
+        console.log(error);
         $ionicLoading.hide();
       });
   });
@@ -177,8 +177,21 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller('CommentsCtrl', function($scope, $stateParams, $ionicLoading, $rootScope, $state) {
-  $scope.question = $stateParams.question;
+.controller('CommentsCtrl', function($scope, $stateParams, $ionicLoading, $rootScope, $state, Comments) {
+
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $scope.question = $stateParams.question;
+    $ionicLoading.show();
+
+    Comments.getAllForQuestionId($scope.question.objectId)
+      .then(function(data) {
+        $scope.comments = data;
+        $ionicLoading.hide();
+      }, function(error) {
+        console.log(error);
+        $ionicLoading.hide();
+      });
+  });
 })
 
 .controller('AccountCtrl', function($scope, $rootScope, $state) {

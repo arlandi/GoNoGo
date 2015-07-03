@@ -1,5 +1,10 @@
 <ion-view view-title="Comments">
-	<ion-content class="padding comments__container">
-		<p>{{question.question}}</p>
-	</ion-content>
+    <ion-content class="padding comments__container">
+        <p>{{question.question}}</p>
+        <ion-list>
+            <ion-item class="item item-icon-left" ng-repeat="comment in comments" type="item-text-wrap">
+            	<i ng-class="comment.vote ? 'ion-thumbsup balanced' : 'ion-thumbsdown assertive'" class="icon"></i><p>{{comment.comment}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
