@@ -102,6 +102,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+  .state('tab.comments', {
+    url: '/comments',
+    params: {
+      question: null
+    },
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/comments.html',
+        controller: 'CommentsCtrl'
+      }
+    }
+  })
+
   .state('tab.account', {
     url: '/account',
     views: {

@@ -1,0 +1,17 @@
+{
+  "global": {
+    "parseVersion": "1.4.2"
+  },
+  "applications": {
+    "GoNoGo": {
+      "applicationId": "fWrQZVK5nEvqdatS6l1xjl6AKUhGfZi0RmvFWe5T",
+      "masterKey": "DDyHOOBaIvBrwy6aDVhOI6UP6zLoigCcG1P8fx4E"
+    },
+    "_default": {
+      "link": "GoNoGo"
+    },
+    "cloudcode": {
+      "link": "GoNoGo"
+    }
+  }
+}

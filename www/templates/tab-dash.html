@@ -5,9 +5,9 @@
                 <img ng-src="{{question.createdBy.picture}}">
                 <h2>{{question.createdBy.usernameDisplay}}</h2>
                 <p>{{question.question}}</p>
-                <a ng-click="goVote(question, 1)" class="button button-small button-outline button-balanced"><span class="percentage">10% | </span>Go</a>
-                <a ng-click="goVote(question, 0)" class="button button-small button-outline button-assertive">No Go</a>
-                <span class="badge badge-stable ion-chatbubble">0</span>
+                <a ng-click="goVote(question, 1)" class="button button-small button-outline button-balanced"><span ng-show="{{question.votePercentage}}" class="percentage">{{question.votePercentage[0]}}% | </span>Go</a>
+                <a ng-click="goVote(question, 0)" class="button button-small button-outline button-assertive"><span ng-show="{{question.votePercentage}}" class="percentage">{{question.votePercentage[1]}}% | </span>No Go</a>
+                <span ng-click="goComments(question)" class="badge badge-stable ion-chatbubble">{{question.commentNum}}</span>
             </ion-item>
         </ion-list>
     </ion-content>

@@ -85,19 +85,30 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 .controller('DashCtrl', function($scope, Questions, $ionicLoading, $state) {
 
-  $ionicLoading.show();
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $ionicLoading.show();
 
-  Questions.all()
-    .then(function(data) {
-      $scope.questions = data;
-      $ionicLoading.hide();
-    }, function(error) {
-      alert(error);
-      $ionicLoading.hide();
-    });
+    Questions.all()
+      .then(function(data) {
+        $scope.questions = data;
+        $ionicLoading.hide();
+      }, function(error) {
+        alert(error);
+        $ionicLoading.hide();
+      });
+  });
 
   $scope.goVote = function(question, vote) {
-    $state.go('tab.vote', { question: question, vote: vote });
+    $state.go('tab.vote', {
+      question: question,
+      vote: vote
+    });
+  };
+
+  $scope.goComments = function(question) {
+    $state.go('tab.comments', {
+      question: question
+    });
   };
 })
 
@@ -108,14 +119,16 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
     var question = new Question();
 
     question.set("question", userQuestion);
+    question.set("commentNum", 0);
+    question.set("yesVote", 0);
+    question.set("noVote", 0);
     question.set("createdBy", $rootScope.currentUser);
 
     question.save(null, {
       success: function(question) {
         console.log(question);
         $ionicLoading.hide();
-        $state.go("tab.dash")
-
+        $state.go("tab.dash");
       },
       error: function(question, error) {
         alert('Failed to create new object, with error code: ' + error.message);
@@ -126,7 +139,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 .controller('VoteCtrl', function($scope, $stateParams, $ionicLoading, $rootScope, $state) {
   $scope.question = $stateParams.question;
-  $scope.vote     = $stateParams.vote;
+  $scope.vote = $stateParams.vote;
 
   $scope.submitVote = function(userVote, userComment) {
     $ionicLoading.show();
@@ -144,16 +157,18 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
     vote.save(null, {
       success: function(vote) {
-        console.log(vote);
         $ionicLoading.hide();
-        $state.go("tab.dash")
-
+        $state.go("tab.dash");
       },
       error: function(vote, error) {
         alert('Failed to create new object, with error code: ' + error.message);
       }
     });
   }
+})
+
+.controller('CommentsCtrl', function($scope, $stateParams, $ionicLoading, $rootScope, $state) {
+  $scope.question = $stateParams.question;
 })
 
 .controller('AccountCtrl', function($scope, $rootScope) {
