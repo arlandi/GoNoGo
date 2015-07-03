@@ -3,7 +3,12 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 .controller('SplashCtrl', function($scope) {})
 
 .controller('SignInCtrl', function($scope, $rootScope, $state) {
-  $scope.signInError = '';
+
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $scope.user = {};
+    $scope.signInError = '';
+    $scope.loading = false;
+  });
 
   $scope.signIn = function(user) {
     $scope.signInError = '';
@@ -39,7 +44,12 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 })
 
 .controller('SignUpCtrl', function($scope, $rootScope, $state) {
-  $scope.signUpError = '';
+
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $scope.user = {};
+    $scope.signUpError = '';
+    $scope.loading = false;
+  });
 
   $scope.signUp = function(user) {
     $scope.signUpError = '';
