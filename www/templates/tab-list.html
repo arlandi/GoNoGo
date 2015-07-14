@@ -1,0 +1,12 @@
+<ion-view view-title="My List">
+    <ion-content class="padding">
+        <ion-list>
+            <ion-item class="item-avatar" ng-repeat="question in questions" type="item-text-wrap">
+                <img ng-src="{{question.createdBy.picture}}">
+                <h2>{{question[0].createdAt | date: timezone}}</h2>
+                <p>{{question[0].question}}</p>
+                <span ng-click="goComments(question[0])" class="badge badge-stable ion-chatbubble">{{question[0].commentNum}}</span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
