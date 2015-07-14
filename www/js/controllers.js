@@ -177,8 +177,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller('CommentsCtrl', function($scope, $stateParams, $ionicLoading, $rootScope, $state, Comments) {
-
+.controller('CommentsCtrl', function($scope, $stateParams, $ionicLoading, $rootScope, $state, Comments  ) {
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.question = $stateParams.question;
     $ionicLoading.show();
@@ -202,4 +201,30 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
     Parse.User.logOut();
     $state.go('splash');
   }
-});
+})
+
+    .controller('ListCtrl', function($scope, Questions, $ionicLoading, $state) {
+        Questions.all()
+            .then(function(data) {
+              for (i = 0; i < data.length; i++){
+                if (data[i].createdBy.objectId == $scope.currentUser.id) {
+                  console.log("hello")
+                  $scope.questions = [];
+                  $scope.questions.push(data)
+
+                }
+
+              }
+              debugger
+              $ionicLoading.hide();
+            }, function(error) {
+              console.log(error);
+              $ionicLoading.hide();
+            });
+
+      $scope.goComments = function(question) {
+        $state.go('tab.comments', {
+          question: question
+        });
+      };
+      });
